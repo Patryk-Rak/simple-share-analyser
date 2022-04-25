@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% block content %}
+
+    <main role="main" class="container">
+          <div class="col-xs-1" align="center">
+            <h1>Database</h1>
+            <p class="lead">Here are all bought shares.</p>
+          </div>
+    </main>
+
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">ID</th>
+          <th scope="col">Title</th>
+          <th scope="col">Amount</th>
+          <th scope="col">Price for entire transaction</th>
+          <th scope="col">price per bulk</th>
+          <th scope="col">Time of transaction</th>
+          <th scope="col">Bought or sold?</th>
+          <th scope="col">Delete?</th>
+        </tr>
+      </thead>
+      <tbody>
+      {% for share in shares %}
+        <tr>
+          <th scope="row">{{share.id}}</th>
+          <td>{{share.name}}</td>
+          <td>{{share.amount}}pc.</td>
+          <td>{{share.price}}$</td>
+          <td>{{share.price_per_bulk}}$</td>
+          <td>{{share.transaction_date}}</td>
+          <td>{{share.type_of_trade}}</td>
+          <td>
+                <a type="button" href="{{share.id}}/delete" class="btn btn-primary"><span class="bi-trash"></span> Delete</a>
+          </td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+
+<div class="container bg-light">
+  <div class="col-md-12 text-center" style="margin-top: 25px">
+    <button type="submit" class="btn btn-outline-primary">Only Bought</button>
+    <button type="submit" class="btn btn-outline-primary">Only Sold</button>
+  </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block content %}
+    <main role="main" class="container">
+          <div class="col-xs-1" align="center">
+            <h1>Simple Share Analyser</h1>
+            <p class="lead">Add name of share, amount and price below.</p>
+          </div>
+    </main>
+
+    <div class="container">
+        <form action="" method="POST">
+            <!-- Security token -->
+            {% csrf_token %}
+            <!-- Using the formset -->
+            {{ form }}
+
+            <div class="container bg-light">
+                <div class="col-md-12 text-center" style="margin-top: 25px">
+                    <button type="submit" class="btn btn-outline-primary">Add Share</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+
+{% endblock %}
