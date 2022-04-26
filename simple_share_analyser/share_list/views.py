@@ -8,13 +8,34 @@ from django.urls import reverse
 import json
 
 
-
 def home(request):
     return render(request, 'home.html')
 
 
 def share_list(request):
     shares = Share.objects.extra(select={'d_field': 'price / amount'}).extra(order_by=['d_field'])
+
+    if request.method == 'DELETE':
+        id = json.loads(request.body)['id']
+        shares = Share.objects.get(pk=id)
+        shares.delete()
+
+    return render(request, 'share_list.html', {"shares": shares})
+
+
+def share_list_bought(request):
+    shares = Share.objects.extra(select={'d_field': 'price / amount'}).extra(order_by=['d_field']).filter(type_of_trade='Bought')
+
+    if request.method == 'DELETE':
+        id = json.loads(request.body)['id']
+        shares = Share.objects.get(pk=id)
+        shares.delete()
+
+    return render(request, 'share_list.html', {"shares": shares})
+
+
+def share_list_sold(request):
+    shares = Share.objects.extra(select={'d_field': 'price / amount'}).extra(order_by=['d_field']).filter(type_of_trade='Sold')
 
     if request.method == 'DELETE':
         id = json.loads(request.body)['id']
